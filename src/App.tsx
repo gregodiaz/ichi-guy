@@ -1,9 +1,11 @@
 import React from 'react'
+import Platformer from './Platformer'
 
 function App() {
 
 	return (
-		<div className='app'>
+		<div id='platformerContainer' className='app'>
+			<Platformer />
 		</div>
 	)
 }

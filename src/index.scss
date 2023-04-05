@@ -28,3 +28,10 @@ body {
 	background: var(--main-black);
 	color: var(--main-white);
 }
+
+.canvas {
+	width: calc(19.2 * 17px * 2);
+	height: calc(11 * 17px * 2);;
+	transform: scale(2);
+	transform-origin: center;
+}
