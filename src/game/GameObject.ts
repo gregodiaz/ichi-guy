@@ -2,7 +2,7 @@ import P5 from 'p5'
 
 export default class GameObject {
 	constructor(
-		public p: P5,
+		public p5: P5,
 		public x: number,
 		public y: number,
 		public width: number,
@@ -11,6 +11,6 @@ export default class GameObject {
 	}
 
 	draw() {
-		this.p.rect(this.x, this.y, this.width, this.height)
+		this.p5.rect(this.x, this.y, this.width, this.height)
 	}
 }

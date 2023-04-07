@@ -12,6 +12,7 @@ describe('GameObject', () => {
 		expect(gameObject.height).toBe(200)
 	})
 
+
 	test('should be able to modify properties of a game object', () => {
 		const gameObject = new GameObject(p5Instance, 20, 30, 40, 50)
 
