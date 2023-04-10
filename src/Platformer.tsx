@@ -41,8 +41,7 @@ const Platformer: React.FC = () => {
 	}
 
 	const keyPressed = (p5: P5) => {
-		if (p5.key === 'e') player.pos.y = 250
-		if (p5.keyCode === 38) player.pos.y = 250
+		if (p5.key.toUpperCase() === 'ARROWUP') player.pos.y = 250
 	}
 
 	return <Sketch setup={setup} draw={draw} keyPressed={keyPressed} />;

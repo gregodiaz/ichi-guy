@@ -26,7 +26,7 @@ export default class Collider extends GameObject {
 		return dx.mag() <= xmin && dy.mag() <= ymin
 	}
 
-	correctMovement(other: Collider): void {
+	moveToAvoid(other: Collider): void {
 		const difVect: P5.Vector = this.pos.copy().sub(other.pos)
 
 		if (!this.isSolid || !other.isSolid || !this.collidesWith(other)) return
@@ -45,10 +45,10 @@ export default class Collider extends GameObject {
 	}
 
 	collidesWithCanvas(): void {
-		if (this.pos.y < this.height) this.pos.y = this.height
+		if (this.pos.y - this.height < 0) this.pos.y = this.height
 		if (this.pos.y + this.height > this.p5.height) this.pos.y = this.p5.height - this.height
 
-		if (this.pos.x < this.width) this.pos.x = this.width
+		if (this.pos.x - this.width < 0) this.pos.x = this.width
 		if (this.pos.x + this.width > this.p5.width) this.pos.x = this.p5.width - this.width
 	}
 }
