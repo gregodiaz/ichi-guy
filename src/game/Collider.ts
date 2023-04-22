@@ -1,8 +1,6 @@
 import P5 from 'p5'
 import GameObject from "./GameObject"
 
-export type Direction = 'top' | 'bottom' | 'left' | 'right'
-
 export default class Collider extends GameObject {
 	constructor(
 		p5: P5,
@@ -14,37 +12,36 @@ export default class Collider extends GameObject {
 		super(p5, pos, width, height)
 	}
 
-	collidesWith(other: Collider): any {
+	collidesWith<T extends Collider>(other: T) {
 		const diffVector: P5.Vector = this.pos.copy().sub(other.pos)
 
 		const yMin: number = this.height + other.height
 		const xMin: number = this.width + other.width
 
-		return Math.abs(diffVector.x) < xMin && Math.abs(diffVector.y) < yMin
+		return Math.abs(diffVector.x) <= xMin && Math.abs(diffVector.y) <= yMin
 	}
 
-	moveToAvoid(other: Collider): void {
-		if (!this.isSolid || !other.isSolid || !this.collidesWith(other)) return
-
-		const diffVector: P5.Vector = this.pos.copy().sub(other.pos)
-		const xDiffVector: P5.Vector = this.p5.createVector(diffVector.x, 0)
-		const yDiffVector: P5.Vector = this.p5.createVector(0, diffVector.y)
-
-		const yMin: number = this.height + other.height
-		const xMin: number = this.width + other.width
-
-		const xOverlap: number = xMin - xDiffVector.mag()
-		const yOverlap: number = yMin - yDiffVector.mag()
-
-		if (yOverlap <= xOverlap) this.pos.add(yDiffVector.copy().normalize().mult(yOverlap))
-		else this.pos.add(xDiffVector.copy().normalize().mult(xOverlap))
+	isAbove<T extends Collider>(other: T) {
+		return (
+			this.pos.x >= other.pos.x - other.width &&
+			this.pos.x <= other.pos.x + other.width &&
+			this.pos.y - this.height >= other.pos.y + other.height
+		)
 	}
 
-	collidesWithCanvas(): void {
-		if (this.pos.y - this.height < 0) this.pos.y = this.height
-		if (this.pos.y + this.height > this.p5.height) this.pos.y = this.p5.height - this.height
+	isOnGroundOr<T extends Collider>(others: T[]) {
+		for (const other of others) {
+			if (!other.isSolid) continue
+			if(!this.isAbove(other)) continue
+			if (this.collidesWith(other)) return true
+		}
+		return this.collidesWithCanvas().y
+	}
 
-		if (this.pos.x - this.width < 0) this.pos.x = this.width
-		if (this.pos.x + this.width > this.p5.width) this.pos.x = this.p5.width - this.width
+	collidesWithCanvas() {
+		const x = this.pos.x - this.width <= 0 || this.pos.x + this.width >= this.p5.width
+		const y = this.pos.y - this.height <= 0 || this.pos.y + this.height >= this.p5.height
+
+		return { x, y }
 	}
 }
