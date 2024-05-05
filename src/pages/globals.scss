@@ -1,0 +1,111 @@
+@font-face {
+	font-family: abel;
+	src:
+		local('abel'),
+		url('/fonts/abel.ttf') format('truetype');
+}
+
+:root {
+	--main-dark: #16161d;
+	--main-light: #f0f0f0;
+	--main-accent: #97577d;
+
+	--transition-duration-animations: 2s;
+	--transition-duration-inputs: 0.2s;
+	--transition-timing-function: ease;
+	--transition-animations: background-color var(--transition-duration-animations) var(--transition-timing-function),
+		color var(--transition-duration-animations) var(--transition-timing-function),
+		opacity var(--transition-duration-animations) var(--transition-timing-function);
+	--transition-inputs: background-color var(--transition-duration-inputs) var(--transition-timing-function),
+		color var(--transition-duration-inputs) var(--transition-timing-function),
+		opacity var(--transition-duration-inputs) var(--transition-timing-function);
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+*::selection {
+	color: var(--main-dark);
+	background: var(--main-accent);
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	font-family: abel;
+	background-color: var(--main-dark);
+	color: var(--main-light);
+
+	* {
+		font-family: inherit;
+		user-select: none;
+		-ms-user-select: none;
+		-webkit-user-select: none;
+	}
+}
+
+h1,
+h2 {
+	font-weight: 700;
+	font-size: 5rem;
+
+	transition: var(--transition-animations);
+}
+
+img {
+	transition: var(--transition-animations);
+}
+
+button {
+	--bg-normal: var(--main-light);
+	--fg-normal: var(--main-dark);
+	--bg-hover: var(--main-accent);
+	--fg-hover: var(--main-light);
+
+	max-height: 100%;
+
+	background-color: var(--bg-normal);
+	color: var(--fg-normal);
+
+	&:focus,
+	&:hover {
+		background-color: var(--bg-hover);
+		color: var(--fg-hover);
+	}
+
+	font-size: 1em;
+	padding: 0.5em 1em;
+
+	border: none;
+	outline: none;
+	cursor: pointer;
+
+	transition: var(--transition-inputs);
+}
+
+::-webkit-scrollbar {
+	width: 0.75em;
+	background: var(--main-dark);
+}
+
+::-webkit-scrollbar-track {
+	background: var(--main-dark);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--main-light);
+
+	&:hover {
+		background-color: var(--main-accent);
+	}
+}
