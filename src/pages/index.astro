@@ -1,5 +1,7 @@
 ---
 import './globals.scss'
+
+import Canvas from '../components/Canvas.astro'
 ---
 
 <html lang="en">
@@ -7,8 +9,12 @@ import './globals.scss'
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<script src="https://cdn.jsdelivr.net/npm/p5@1.9.3/lib/p5.js"></script>
 		<title>Ichi Guy</title>
 	</head>
 	<body>
+		<div class="app">
+			<Canvas />
+		</div>
 	</body>
 </html>
